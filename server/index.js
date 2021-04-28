@@ -33,7 +33,6 @@ async function retrieveChampionById(id) {
 
 // returns an object containing data about the challenger league on EUW
 app.get("/ladder", async (req, res) => {
-  console.log(RIOT_API_KEY);
   let r = await riotAPI.League.getChallengerLeaguesByQueue(
     twisted.Constants.Queues.RANKED_SOLO_5x5,
     twisted.Constants.Regions.EU_WEST
