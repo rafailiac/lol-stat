@@ -5,7 +5,7 @@ const express = require("express");
 const PORT = process.env.PORT || 3001;
 
 const app = express();
-const RIOT_API_KEY = "RGAPI-cfc725e8-ce97-4832-a0ac-4f54b9cb3f02";
+const RIOT_API_KEY = process.env.RIOT_API_KEY;
 const riotAPI = new twisted.LolApi(RIOT_API_KEY);
 
 async function summonerByName() {
@@ -33,6 +33,7 @@ async function retrieveChampionById(id) {
 
 // returns an object containing data about the challenger league on EUW
 app.get("/ladder", async (req, res) => {
+  console.log(RIOT_API_KEY);
   let r = await riotAPI.League.getChallengerLeaguesByQueue(
     twisted.Constants.Queues.RANKED_SOLO_5x5,
     twisted.Constants.Regions.EU_WEST
