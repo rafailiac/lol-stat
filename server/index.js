@@ -46,28 +46,9 @@ app.get("/champions", async (req, res) => {
   res.json(r.data);
 });
 
-app.get("/summoner", (req, res) => {
-  let r = summonerByName();
-  res.json({ message: r.id });
-});
-
 app.get("/freeChampionsRotation", async (req, res) => {
-  let r = await freeChampionsRotation();
-  //console.log("champs: ", r["response"].freeChampionIds);
-  let champions = [];
-  for (let champ of r.response.freeChampionIds) {
-    console.log(champ);
-    champions.push(
-      await retrieveChampionById(r.response.freeChampionIds[champ])
-    );
-  }
-  console.log(champions);
-  let championNames = [];
-  for (let champ in champions) {
-    championNames.push(champ.name);
-  }
-  console.log("champions anmes: ", championNames);
-  res.json({ champions: championNames });
+  let r = await riotAPI.Champion.rotation(twisted.Constants.Regions.EU_WEST);
+  res.json({ freeChampions: r.response.freeChampionIds });
 });
 
 app.get("/api", (req, res) => {

@@ -13,6 +13,7 @@ class App extends React.Component {
       isQueried: false,
       champions: {},
       formInput: { data: "", type: "summoner" },
+      reloadContent: false,
     };
   }
 
@@ -36,6 +37,8 @@ class App extends React.Component {
           champions={this.state.champions}
           isQueried={this.state.isQueried}
           formInput={this.state.formInput}
+          reloadContent={this.state.reloadContent}
+          contentReloaded={this.contentReloaded}
         />
       </div>
     );
@@ -46,7 +49,10 @@ class MainContent extends React.Component {
   constructor(props) {
     super(props);
     this.openChampionInfo = this.openChampionInfo.bind(this);
-    this.state = { championClicked: false, championName: "" };
+    this.state = {
+      championClicked: false,
+      championName: "",
+    };
   }
 
   openChampionInfo(championName) {

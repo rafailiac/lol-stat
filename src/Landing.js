@@ -18,6 +18,11 @@ class LandingContent extends React.Component {
         </div>
         <div className="ChampionsList">
           <center>
+            <h1>Free champions rotation:</h1>
+            <FreeChampionsRotation
+              champions={this.props.champions}
+              openChampionInfo={this.props.openChampionInfo}
+            />
             <h1>Champions:</h1>
             <ChampionsList
               champions={this.props.champions}
@@ -140,22 +145,32 @@ class FreeChampionsRotation extends React.Component {
   constructor(props) {
     super(props);
     this.componentDidMount = this.componentDidMount.bind(this);
-    this.state = { freeChampions: {} };
+    this.state = { freeChampions: [] };
   }
 
   async componentDidMount() {
     const response = await fetch("/freeChampionsRotation");
     const json = await response.json();
-    console.log("json: ", json);
-    this.setState({ freeChampions: json });
+    this.setState({ freeChampions: json.freeChampions });
   }
-  //<ChampionsList champions={this.props.champions} />
+
   render() {
+    let ftpChamps = {};
+    let champions = this.props.champions;
+    for (let champId in champions) {
+      let champ = champions[champId];
+      if (champ.key in this.state.freeChampions) {
+        ftpChamps[champ.id] = champ;
+      }
+    }
+
     return (
       <div className="FreeChampionsRotation">
-        <h2>Here is this week's free champions rotation:</h2>
         <div>
-          <p> here</p>
+          <ChampionsList
+            champions={ftpChamps}
+            openChampionInfo={this.props.openChampionInfo}
+          />
         </div>
       </div>
     );
