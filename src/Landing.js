@@ -76,15 +76,32 @@ class ChallengerLadder extends React.Component {
     this.setState({ ladder: await json });
   }
 
+  //compare function
+  GetSortOrder(prop) {
+    return function (a, b) {
+      if (a[prop] > b[prop]) {
+        return -1;
+      } else if (a[prop] < b[prop]) {
+        return 1;
+      }
+      return 0;
+    };
+  }
+
   render() {
-    const challengers = this.state.ladder.entries;
-    console.log("challengers: ", challengers);
+    let challengers = this.state.ladder.entries;
+    if (challengers) {
+      challengers.sort(this.GetSortOrder("leaguePoints"));
+      challengers = challengers.slice(0, 50);
+    }
+
     let items = [];
     let rank = 1;
+
     for (let chal in challengers) {
       let challenger = challengers[chal];
       items.push(
-        <tr>
+        <tr key={challenger.summonerName}>
           <td>{rank}</td>
           <td>{challenger.summonerName}</td>
           <td>{challenger.wins}</td>
@@ -97,32 +114,23 @@ class ChallengerLadder extends React.Component {
           </td>
           <td>{challenger.leaguePoints}</td>
         </tr>
-        /*<div className="challengerLink" key={challenger.summonerName}>
-          {rank +
-            ". " +
-            challenger.summonerName +
-            " LP: " +
-            challenger.leaguePoints +
-            " Wins: " +
-            challenger.wins +
-            " Losses: " +
-            challenger.losses}
-        </div>*/
       );
       rank += 1;
     }
-    //return <div className="ChallengerLadderActual">{items}</div>;
+
     return (
       <table className="ChallengerLadderActual">
-        <tr>
-          <th>Rank</th>
-          <th>Summoner</th>
-          <th>Wins</th>
-          <th>Losses</th>
-          <th>Winrate</th>
-          <th>LP</th>
-        </tr>
-        {items}
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Summoner</th>
+            <th>Wins</th>
+            <th>Losses</th>
+            <th>Winrate</th>
+            <th>LP</th>
+          </tr>
+        </thead>
+        <tbody>{items}</tbody>
       </table>
     );
   }
@@ -131,24 +139,23 @@ class ChallengerLadder extends React.Component {
 class FreeChampionsRotation extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { champions: [] };
-    //this.componentDidMount = this.componentDidMount.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
+    this.state = { freeChampions: {} };
   }
 
-  /*async componentDidMount() {
-      const response = await fetch("/freeChampionsRotation");
-      const json = await response.json();
-      //const freeChampionIds = json.champions.freeChampionIds;
-      console.log("json: ", json);
-      this.setState({ champions: json.champions });
-    }*/
-
+  async componentDidMount() {
+    const response = await fetch("/freeChampionsRotation");
+    const json = await response.json();
+    console.log("json: ", json);
+    this.setState({ freeChampions: json });
+  }
+  //<ChampionsList champions={this.props.champions} />
   render() {
     return (
       <div className="FreeChampionsRotation">
         <h2>Here is this week's free champions rotation:</h2>
         <div>
-          <ChampionsList champions={this.props.champions} />
+          <p> here</p>
         </div>
       </div>
     );
