@@ -131,9 +131,10 @@ code {
 
 .champNotFound {
   position: absolute;
-  top: 50%;
-  left: 40%;
-  width: 20%;
+  left: 0%;
+  width: 100%;
+  min-height: 720px;
+  background-color: #a3abbd;
 }
 
 .champInfoContainer {

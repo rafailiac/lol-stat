@@ -178,3 +178,4 @@ class FreeChampionsRotation extends React.Component {
 }
 
 export default LandingContent;
+export { ChampionsList };

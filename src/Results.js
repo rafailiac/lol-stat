@@ -14,6 +14,7 @@ class QueryResult extends React.Component {
         <ChampionInfo
           champions={this.props.champions}
           champion={this.props.data}
+          openChampionInfo={this.props.openChampionInfo}
         />
       );
     }

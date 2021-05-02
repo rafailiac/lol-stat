@@ -68,6 +68,7 @@ class MainContent extends React.Component {
             champions={this.props.champions}
             type="champion"
             data={this.state.championName}
+            openChampionInfo={this.openChampionInfo}
           />
         );
       } else {
@@ -84,6 +85,7 @@ class MainContent extends React.Component {
           champions={this.props.champions}
           type={this.props.formInput.type}
           data={this.props.formInput.data}
+          openChampionInfo={this.openChampionInfo}
         />
       );
     }

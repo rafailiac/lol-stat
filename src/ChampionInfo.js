@@ -1,10 +1,13 @@
 import React from "react";
 import "./index.css";
+import { ChampionsList } from "./Landing";
 
 class ChampionInfo extends React.Component {
   constructor(props) {
     super(props);
     this.getChampion = this.getChampion.bind(this);
+    this.openChampionInfo = this.openChampionInfo.bind(this);
+    this.state = { champ: null };
   }
 
   getChampion() {
@@ -16,10 +19,20 @@ class ChampionInfo extends React.Component {
     return this.props.champions[champ];
   }
 
+  openChampionInfo(champion) {
+    this.setState({ champ: this.props.champions[champion] });
+  }
+
   render() {
     let content;
-    let champ = this.getChampion();
+    let champ;
+    if (this.state.champ) {
+      champ = this.state.champ;
+    } else {
+      champ = this.getChampion();
+    }
     if (champ) {
+      this.state.champ = null; //TODO: find a way to avoid this
       content = (
         <div className="champInfoContainer">
           <BasicChampionInformation champ={champ} />
@@ -28,13 +41,16 @@ class ChampionInfo extends React.Component {
         </div>
       );
     } else {
-      alert("Please input valid champion name!");
       content = (
         <div className="champNotFound">
           <center>
             <h1>
               404 <br /> Champion not found
             </h1>
+            <ChampionsList
+              champions={this.props.champions}
+              openChampionInfo={this.openChampionInfo}
+            />
           </center>
         </div>
       );
@@ -139,11 +155,11 @@ function DetailedChampionStatistics(props) {
   const champData = require(`./assets/loldata/data/champion/${props.champ.id}.json`);
   const allytips = [];
   for (let tip of champData.data[props.champ.id].allytips) {
-    allytips.push(<p>{tip}</p>);
+    allytips.push(<p key={tip}>{tip}</p>);
   }
   const enemytips = [];
   for (let tip of champData.data[props.champ.id].enemytips) {
-    enemytips.push(<p>{tip}</p>);
+    enemytips.push(<p key={tip}>{tip}</p>);
   }
   return (
     <div className="detailedChampionStatistics">
@@ -254,14 +270,14 @@ function DetailedChampionStatistics(props) {
         <center>
           <h2>Tips</h2>
         </center>
-        <p>
+        <div>
           <h3>As {props.champ.name}:</h3>
           {allytips}
-        </p>
-        <p>
+        </div>
+        <div>
           <h3>Against {props.champ.name}:</h3>
           {enemytips}
-        </p>
+        </div>
       </div>
     </div>
   );
