@@ -1,6 +1,7 @@
 import React from "react";
 import "./index.css";
 import ChampionInfo from "./ChampionInfo";
+import SummonerInfo from "./SummonerInfo";
 
 class QueryResult extends React.Component {
   /**
@@ -22,20 +23,6 @@ class QueryResult extends React.Component {
       );
     }
     return <div>{content}</div>;
-  }
-}
-class SummonerInfo extends React.Component {
-  render() {
-    return (
-      <div className="SummonerInfo">
-        <div className="Sidenav">
-          <h1>Summoner: {this.props.name}</h1>
-        </div>
-        <div className="MainContent">
-          <h1>Match History</h1>
-        </div>
-      </div>
-    );
   }
 }
 
