@@ -100,7 +100,7 @@ class ChampionInfo extends React.Component {
             champ={champ}
           />
           <ChampionAbilitiesInformation champ={champ} />
-          <div className="detailedChampionStatistics">detailed champ info</div>
+          <DetailedChampionStatistics champ={champ} />
         </div>
       );
     } else {
@@ -142,7 +142,6 @@ function BasicChampionInformation(props) {
 }
 
 function ChampionAbilitiesInformation(props) {
-  // champ in props
   const champData = require(`./assets/loldata/data/champion/${props.champ.id}.json`);
   const champPassive = champData.data[props.champ.id].passive;
   const champSpells = champData.data[props.champ.id].spells;
@@ -197,6 +196,126 @@ function AbilityInfo(props) {
           Range: {props.spell.rangeBurn ? props.spell.rangeBurn : "None"}
         </div>
       </div>
+    </div>
+  );
+}
+
+function DetailedChampionStatistics(props) {
+  const stats = props.champ.stats;
+  const champData = require(`./assets/loldata/data/champion/${props.champ.id}.json`);
+  const allytips = [];
+  for (let tip of champData.data[props.champ.id].allytips) {
+    allytips.push(<p>{tip}</p>);
+  }
+  const enemytips = [];
+  for (let tip of champData.data[props.champ.id].enemytips) {
+    enemytips.push(<p>{tip}</p>);
+  }
+  console.log(champData);
+  return (
+    <div className="detailedChampionStatistics">
+      <center>
+        <h2>Stats</h2>
+        <table className="detailedStats">
+          <thead>
+            <tr>
+              <th>Stat</th>
+              <th>Base (at level 1)</th>
+              <th>Per level</th>
+              <th>At level 18</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Health</td>
+              <td>{stats.hp}</td>
+              <td>{stats.hpperlevel}</td>
+              <td>{stats.hp + stats.hpperlevel * 17}</td>
+            </tr>
+            <tr>
+              <td>Health Regen</td>
+              <td>{stats.hpregen}</td>
+              <td>{stats.hpregenperlevel}</td>
+              <td>{(stats.hpregen + stats.hpregenperlevel * 17).toFixed(2)}</td>
+            </tr>
+            <tr>
+              <td>Mana</td>
+              <td>{stats.mp}</td>
+              <td>{stats.mpperlevel}</td>
+              <td>{stats.mp + stats.mpperlevel * 17}</td>
+            </tr>
+            <tr>
+              <td>Mana Regen</td>
+              <td>{stats.mpregen}</td>
+              <td>{stats.mpregenperlevel}</td>
+              <td>{(stats.mpregen + stats.mpregenperlevel * 17).toFixed(2)}</td>
+            </tr>
+            <tr>
+              <td>Armor</td>
+              <td>{stats.armor}</td>
+              <td>{stats.armorperlevel}</td>
+              <td>{stats.armor + stats.armorperlevel * 17}</td>
+            </tr>
+            <tr>
+              <td>Magic Resist</td>
+              <td>{stats.spellblock}</td>
+              <td>{stats.spellblockperlevel}</td>
+              <td>{stats.spellblock + stats.spellblockperlevel * 17}</td>
+            </tr>
+            <tr>
+              <td>Movement Speed</td>
+              <td>{stats.movespeed}</td>
+              <td>{stats.movespeedperlevel ? stats.movespeedperlevel : 0}</td>
+              <td>
+                {stats.movespeedperlevel
+                  ? (stats.movespeed + stats.movespeedperlevel * 17).toFixed(2)
+                  : stats.movespeed}
+              </td>
+            </tr>
+            <tr>
+              <td>Attack Range</td>
+              <td>{stats.attackrange}</td>
+              <td>
+                {stats.attackrangeperlevel ? stats.attackrangeperlevel : 0}
+              </td>
+              <td>
+                {stats.attackrangeperlevel
+                  ? (
+                      stats.attackrange +
+                      stats.attackrangeperlevel * 17
+                    ).toFixed(2)
+                  : stats.attackrange}
+              </td>
+            </tr>
+            <tr>
+              <td>Attack Damage</td>
+              <td>{stats.attackdamage}</td>
+              <td>{stats.attackdamageperlevel}</td>
+              <td>
+                {(stats.attackdamage + stats.attackdamageperlevel * 17).toFixed(
+                  2
+                )}
+              </td>
+            </tr>
+            <tr>
+              <td>Attack Speed</td>
+              <td>{stats.attackspeed}</td>
+              <td>{stats.attackspeedperlevel}%</td>
+              <td>+{(stats.attackspeedperlevel * 17).toFixed(2)}%</td>
+            </tr>
+            <tr>
+              <td>Critical Strike Chance</td>
+              <td>{stats.crit}</td>
+              <td>{stats.critperlevel}</td>
+              <td>
+                {stats.critperlevel
+                  ? (stats.crit + stats.critperlevel * 17).tofixed(2)
+                  : stats.crit}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </center>
     </div>
   );
 }

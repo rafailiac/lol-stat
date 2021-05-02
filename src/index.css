@@ -198,6 +198,30 @@ code {
   min-width: 33%;
 }
 
+.detailedStats {
+  width: 90%;
+  padding: 20px;
+  margin: 20px;
+  text-align: center;
+  border: 1px solid white;
+  border-collapse: collapse;
+}
+
+.detailedStats > thead > tr > th {
+  border: 1px solid white;
+  background-color: white;
+  color: #34425a;
+}
+
+.detailedStats > tbody > tr > td {
+  border: 1px solid white;
+}
+
+.tips {
+  margin: 20px;
+  padding: 20px;
+}
+
 @media only screen and (max-width: 1070px) {
   .LogoContainer {
     display: none;
