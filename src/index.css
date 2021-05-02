@@ -87,8 +87,8 @@ code {
   padding: 3px;
 }
 .championImage {
-  width: 60px;
-  height: 60px;
+  width: 64px;
+  height: 64px;
 }
 
 .ChallengerLadder {
@@ -144,6 +144,7 @@ code {
 
 .basicChampInfo {
   flex-grow: 1;
+  min-width: 27.5%;
   background-color: #181b23;
 }
 
@@ -164,9 +165,37 @@ code {
   color: black;
 }
 
+.abilityInfo {
+  display: flex;
+  padding: 20px;
+  margin: -1px;
+  border: 1px solid black;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.abilityInfo > div {
+  padding: 5px;
+}
+.descr {
+  width: 100%;
+}
+
+.crr {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: space-between;
+}
+.crr > div {
+  flex-grow: 1;
+  min-width: 33%;
+}
+
 .detailedChampionStatistics {
   background-color: #34425a;
   flex-grow: 3.5;
+  min-width: 33%;
 }
 
 @media only screen and (max-width: 1070px) {

@@ -24,6 +24,7 @@ class App extends React.Component {
   }
 
   async componentDidMount() {
+    // TODO: remove, champion data can be loaded from files instead
     const response = await fetch("/champions");
     const json = response.json();
     this.setState({ champions: await json });
@@ -38,7 +39,6 @@ class App extends React.Component {
           isQueried={this.state.isQueried}
           formInput={this.state.formInput}
           reloadContent={this.state.reloadContent}
-          contentReloaded={this.contentReloaded}
         />
       </div>
     );
