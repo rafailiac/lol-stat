@@ -3,6 +3,10 @@ import "./index.css";
 import { ChampionsList } from "./Landing";
 
 class ChampionInfo extends React.Component {
+  /**
+   * Presents information about selected champion
+   * @param {*} props
+   */
   constructor(props) {
     super(props);
     this.getChampion = this.getChampion.bind(this);
@@ -60,6 +64,9 @@ class ChampionInfo extends React.Component {
 }
 
 function BasicChampionInformation(props) {
+  /**
+   * Gives basic champion information, such as name, class, lore, loading image
+   */
   const imagesLoading = require.context(
     "./assets/loldata/images/loading",
     true
@@ -92,6 +99,9 @@ function BasicChampionInformation(props) {
 }
 
 function ChampionAbilitiesInformation(props) {
+  /**
+   * Gives information about champion's abilities
+   */
   const champData = require(`./assets/loldata/data/champion/${props.champ.id}.json`);
   const champPassive = champData.data[props.champ.id].passive;
   const champSpells = champData.data[props.champ.id].spells;
@@ -118,6 +128,9 @@ function ChampionAbilitiesInformation(props) {
 }
 
 function AbilityInfo(props) {
+  /**
+   * Gives information about specific ability
+   */
   const spellImg = props.images(`./${props.spell.image.full}`).default;
   return (
     <div className="abilityInfo">
@@ -151,6 +164,9 @@ function AbilityInfo(props) {
 }
 
 function DetailedChampionStatistics(props) {
+  /**
+   * Presents detailed statistics about a champion, such as hp, mana, attack and gives quick tips
+   */
   const stats = props.champ.stats;
   const champData = require(`./assets/loldata/data/champion/${props.champ.id}.json`);
   const allytips = [];

@@ -6,6 +6,11 @@ import QueryResult from "./Results";
 import "./index.css";
 
 class App extends React.Component {
+  /**
+   *
+   * Entry point of the app, serves as a bridge between the header and the content part
+   *
+   */
   constructor(props) {
     super(props);
     this.getSearchInput = this.getSearchInput.bind(this);
@@ -13,7 +18,6 @@ class App extends React.Component {
       isQueried: false,
       champions: {},
       formInput: { data: "", type: "summoner" },
-      reloadContent: false,
     };
   }
 
@@ -38,7 +42,6 @@ class App extends React.Component {
           champions={this.state.champions}
           isQueried={this.state.isQueried}
           formInput={this.state.formInput}
-          reloadContent={this.state.reloadContent}
         />
       </div>
     );
@@ -46,6 +49,10 @@ class App extends React.Component {
 }
 
 class MainContent extends React.Component {
+  /**
+   * Controls the content of the app (everything but the header)
+   * @param {champions, isQueried, formInput} props
+   */
   constructor(props) {
     super(props);
     this.openChampionInfo = this.openChampionInfo.bind(this);

@@ -4,6 +4,10 @@ import lolLogo from "./assets/League-of-Legends-Logo.png";
 import riotLogo from "./assets/riot-logo.png";
 
 class Header extends React.Component {
+  /**
+   * Header component, controls the name, logos and search bar
+   * @param {*} props
+   */
   constructor(props) {
     super(props);
     this.processFormInput = this.processFormInput.bind(this);
@@ -39,6 +43,10 @@ class Header extends React.Component {
 }
 
 class SearchForm extends React.Component {
+  /**
+   * Presents the search for champion/summoner input field
+   * @param {*} props
+   */
   constructor(props) {
     super(props);
     this.state = { selected: "summoner", text: "" };

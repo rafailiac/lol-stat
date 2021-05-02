@@ -2,6 +2,13 @@ import React from "react";
 import "./index.css";
 
 class LandingContent extends React.Component {
+  /**
+   * Controls the initial 'main content'
+   * Uses ChallengerLadder component to present the current challenger leaderboard
+   * Uses FreeChampionRotation component to show which champions are currently free to play
+   * Uses ChampionsList component to show a list of all available champions
+   * @param {champions, openChampionInfo} props
+   */
   constructor(props) {
     super(props);
     this.state = {};
@@ -36,6 +43,10 @@ class LandingContent extends React.Component {
 }
 
 class ChampionsList extends React.Component {
+  /**
+   * Shows a list of @champions
+   * @param {champions, openChampionInfo} props
+   */
   constructor(props) {
     super(props);
     this.state = {};
@@ -70,6 +81,10 @@ class ChampionsList extends React.Component {
 }
 
 class ChallengerLadder extends React.Component {
+  /**
+   * Shows the leaderboard of top 50 challenger players on EUW server
+   * @param {} props
+   */
   constructor(props) {
     super(props);
     this.state = { ladder: {} };
@@ -142,6 +157,10 @@ class ChallengerLadder extends React.Component {
 }
 
 class FreeChampionsRotation extends React.Component {
+  /**
+   * Uses ChampionsList component to show currently free to play champions
+   * @param {champions, openChampionInfo} props
+   */
   constructor(props) {
     super(props);
     this.componentDidMount = this.componentDidMount.bind(this);

@@ -3,6 +3,9 @@ import "./index.css";
 import ChampionInfo from "./ChampionInfo";
 
 class QueryResult extends React.Component {
+  /**
+   * Presents the results of an executed query, this might me SummonerInfo or ChampionInfo
+   */
   render() {
     let content;
     if (this.props.type === "summoner") {
