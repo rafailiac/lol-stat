@@ -8,28 +8,23 @@ const app = express();
 const RIOT_API_KEY = process.env.RIOT_API_KEY;
 const riotAPI = new twisted.LolApi(RIOT_API_KEY);
 
-async function summonerByName() {
-  const api = new twisted.LolApi(RIOT_API_KEY);
-  let res = await api.Summoner.getByName(
-    "secSPLITond",
+app.get("/matches", async (req, res) => {
+  const accountId = req.query.accountId;
+  let r = await riotAPI.Match.list(
+    accountId,
     twisted.Constants.Regions.EU_WEST
   );
-  console.log(res);
-  return res;
-}
+  res.json(r.response);
+});
 
-async function freeChampionsRotation() {
-  const api = new twisted.LolApi(RIOT_API_KEY);
-  let res = await api.Champion.rotation(twisted.Constants.Regions.EU_WEST);
-  return res;
-}
-
-async function retrieveChampionById(id) {
-  const api = new twisted.LolApi(RIOT_API_KEY);
-  let res = await api.DataDragon.getChampion(id);
-  //console.log("Champ by ID: ", res);
-  return res;
-}
+app.get("/summoner", async (req, res) => {
+  const name = req.query.name;
+  let r = await riotAPI.Summoner.getByName(
+    name,
+    twisted.Constants.Regions.EU_WEST
+  );
+  res.json(r.response);
+});
 
 // returns an object containing data about the challenger league on EUW
 app.get("/ladder", async (req, res) => {
@@ -46,6 +41,7 @@ app.get("/champions", async (req, res) => {
   res.json(r.data);
 });
 
+// returns an object containing an array with the IDs of the free champions this week
 app.get("/freeChampionsRotation", async (req, res) => {
   let r = await riotAPI.Champion.rotation(twisted.Constants.Regions.EU_WEST);
   res.json({ freeChampions: r.response.freeChampionIds });

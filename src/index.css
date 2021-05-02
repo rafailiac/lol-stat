@@ -109,24 +109,25 @@ code {
 }
 
 .SummonerInfo {
-  align-items: center;
-  justify-content: center;
+  display: flex;
 }
 
-.Sidenav {
-  height: 100%;
-  width: 25%;
-  position: fixed;
-  z-index: 1;
-  background-color: #282c34;
-  overflow-x: hidden;
+.summonerData {
+  flex-grow: 1;
+  background-color: #181b23;
+  color: white;
 }
 
-.MainContent {
-  height: 100%;
-  margin-left: 25%;
-  position: fixed;
-  width: 75%;
+.matchHistory {
+  background-color: #a3abbd;
+  flex-grow: 2;
+  color: black;
+}
+
+.bestChampions {
+  background-color: #34425a;
+  color: white;
+  flex-grow: 1;
 }
 
 .champNotFound {
