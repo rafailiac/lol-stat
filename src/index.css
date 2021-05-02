@@ -145,6 +145,7 @@ code {
 .basicChampInfo {
   flex-grow: 1;
   min-width: 27.5%;
+  max-width: 30%;
   background-color: #181b23;
 }
 
@@ -157,6 +158,10 @@ code {
   margin-top: 12px;
   margin-bottom: 11px;
   font-size: 18px;
+}
+
+.lore {
+  width: 80%;
 }
 
 .champAbilitiesInfo {

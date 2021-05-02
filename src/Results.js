@@ -121,6 +121,7 @@ class ChampionInfo extends React.Component {
 
 function BasicChampionInformation(props) {
   const champImg = props.imagesLoading(`./${props.champ.id}_0.jpg`).default;
+  const champData = require(`./assets/loldata/data/champion/${props.champ.id}.json`);
   return (
     <div className="basicChampInfo">
       <center>
@@ -135,6 +136,11 @@ function BasicChampionInformation(props) {
           <p>{"Defense: " + props.champ.info.defense + " / 10 "}</p>
           <p>{"Magic: " + props.champ.info.magic + " / 10 "}</p>
           <p>{"Difficulty: " + props.champ.info.difficulty + " / 10 "}</p>
+        </div>
+        <br />
+        <div className="lore">
+          <h2>Lore</h2>
+          <p>{champData.data[props.champ.id].lore}</p>
         </div>
       </center>
     </div>
@@ -211,7 +217,6 @@ function DetailedChampionStatistics(props) {
   for (let tip of champData.data[props.champ.id].enemytips) {
     enemytips.push(<p>{tip}</p>);
   }
-  console.log(champData);
   return (
     <div className="detailedChampionStatistics">
       <center>
@@ -316,6 +321,20 @@ function DetailedChampionStatistics(props) {
           </tbody>
         </table>
       </center>
+
+      <div className="tips">
+        <center>
+          <h2>Tips</h2>
+        </center>
+        <p>
+          <h3>As {props.champ.name}:</h3>
+          {allytips}
+        </p>
+        <p>
+          <h3>Against {props.champ.name}:</h3>
+          {enemytips}
+        </p>
+      </div>
     </div>
   );
 }
