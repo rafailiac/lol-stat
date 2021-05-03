@@ -8,6 +8,24 @@ const app = express();
 const RIOT_API_KEY = process.env.RIOT_API_KEY;
 const riotAPI = new twisted.LolApi(RIOT_API_KEY);
 
+app.get("/summonerleague", async (req, res) => {
+  const summonerId = req.query.summId;
+  let r = await riotAPI.League.bySummoner(
+    summonerId,
+    twisted.Constants.Regions.EU_WEST
+  );
+  res.json(r.response);
+});
+
+app.get("/champmastery", async (req, res) => {
+  const summonerId = req.query.summId;
+  let r = await riotAPI.Champion.masteryBySummoner(
+    summonerId,
+    twisted.Constants.Regions.EU_WEST
+  );
+  res.json(r.response);
+});
+
 app.get("/matches", async (req, res) => {
   const accountId = req.query.accountId;
   let r = await riotAPI.Match.list(

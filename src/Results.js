@@ -11,7 +11,11 @@ class QueryResult extends React.Component {
     let content;
     if (this.props.type === "summoner") {
       content = (
-        <SummonerInfo champions={this.props.champions} name={this.props.data} />
+        <SummonerInfo
+          champions={this.props.champions}
+          name={this.props.data}
+          summoner={this.props.summoner}
+        />
       );
     } else {
       content = (

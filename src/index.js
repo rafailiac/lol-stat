@@ -18,11 +18,40 @@ class App extends React.Component {
       isQueried: false,
       champions: {},
       formInput: { data: "", type: "summoner" },
+      summoner: {},
     };
   }
 
-  getSearchInput(input) {
-    this.setState({ isQueried: true, formInput: input }); //, this.executeSearch);
+  // TODO: Reconsider or at least change name
+  async getSearchInput(input) {
+    if (input.type === "summoner") {
+      let response = await fetch(`/summoner?name=${this.props.name}`);
+      let summoner = await response.json();
+      // summoner contains summonerIDs (id, accountId, name, puuid, level)
+      console.log("summoner:", summoner);
+      response = await fetch(`/matches?accountId=${summoner.accountId}`);
+      let matches = await response.json();
+      console.log("matches: ", matches);
+      response = await fetch(`/champmastery?summId=${summoner.id}`);
+      let mastery = await response.json();
+      // mastery contains an array of obejcts {championId, chmpionLevel, championPoints}
+      response = await fetch(`/summonerleague?summId=${summoner.id}`);
+      let summonerLeague = await response.json();
+      // summonerLeague contains an array with all league types
+      console.log("summoner league: ", summonerLeague);
+      this.setState({
+        summoner: {
+          ids: summoner,
+          matches: matches,
+          mastery: mastery,
+          summonerLeague: summonerLeague,
+        },
+        isQueried: true,
+        formInput: input,
+      });
+    } else {
+      this.setState({ isQueried: true, formInput: input }); //, this.executeSearch);
+    }
     //console.log("Input received: ", input);
     //console.log("Current state: ", this.state.formInput); // WHY IS THIS SO SLOW?
   }
@@ -42,6 +71,7 @@ class App extends React.Component {
           champions={this.state.champions}
           isQueried={this.state.isQueried}
           formInput={this.state.formInput}
+          summoner={this.state.summoner}
         />
       </div>
     );
@@ -93,6 +123,7 @@ class MainContent extends React.Component {
           type={this.props.formInput.type}
           data={this.props.formInput.data}
           openChampionInfo={this.openChampionInfo}
+          summoner={this.props.summoner}
         />
       );
     }
