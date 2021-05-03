@@ -13,32 +13,69 @@ class SummonerInfo extends React.Component {
   }
 
   render() {
-    let summoner, matches;
+    let summoner;
     if (this.props.summoner) {
       summoner = this.props.summoner;
     } else {
-      return <div>Loading...</div>;
-    }
-    if (this.props.summoner.matches) {
-      matches = this.props.summoner.matches;
-    } else {
-      return <div>Loading...</div>;
+      return <div> Loading ... </div>;
     }
     return (
       <div className="SummonerInfo">
-        <div className="summonerData">
-          <h2>Summoner: {this.props.name}</h2>
-          {summoner.ids.toString()}
-        </div>
-        <div className="matchHistory">
-          <h2>Match History</h2>
-          {matches.toString()}
-        </div>
-        <div className="bestChampions">
-          <h2>Top Champions</h2>
-        </div>
+        <SummonerData summoner={summoner} />
+        <MatchHistory summoner={this.props.summoner} />
+        <BestChampions summoner={this.props.summoner} />
       </div>
     );
   }
+}
+
+function SummonerData(props) {
+  return (
+    <div className="summonerData">
+      <center>
+        <h2>{props.summoner.ids.name}</h2>
+        <LeagueEntries leagues={props.summoner.summonerLeague} />
+      </center>
+    </div>
+  );
+}
+
+function LeagueEntries(props) {
+  let leagueEntries = [];
+  console.log(props.leagues);
+  for (let entry of props.leagues) {
+    leagueEntries.push(
+      <div className="leagueEntry" key={entry.leagueId}>
+        <br />
+        <p>Queue Type: {entry.queueType}</p>
+        <p>Tier: {entry.tier}</p>
+        <p>League points (LP): {entry.leaguePoints}</p>
+        <p>
+          Wins: {entry.wins}, Losses: {entry.losses}
+        </p>
+      </div>
+    );
+  }
+  return <div className="leagueEntries">{leagueEntries}</div>;
+}
+
+function MatchHistory(props) {
+  return (
+    <div className="matchHistory">
+      <center>
+        <h2>Match History</h2>
+      </center>
+    </div>
+  );
+}
+
+function BestChampions(props) {
+  return (
+    <div className="bestChampions">
+      <center>
+        <h2>Top Champions</h2>
+      </center>
+    </div>
+  );
 }
 export default SummonerInfo;

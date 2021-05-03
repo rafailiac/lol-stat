@@ -25,7 +25,8 @@ class App extends React.Component {
   // TODO: Reconsider or at least change name
   async getSearchInput(input) {
     if (input.type === "summoner") {
-      let response = await fetch(`/summoner?name=${this.props.name}`);
+      // fetch summoner data, TODO: move to own function
+      let response = await fetch(`/summoner?name=${input.data}`);
       let summoner = await response.json();
       // summoner contains summonerIDs (id, accountId, name, puuid, level)
       console.log("summoner:", summoner);
@@ -39,6 +40,11 @@ class App extends React.Component {
       let summonerLeague = await response.json();
       // summonerLeague contains an array with all league types
       console.log("summoner league: ", summonerLeague);
+      /*response = await fetch(
+        `/match?matchId=${matches.matches[matches.matches.length - 1].gameId}`
+      );
+      let testMatch = await response.json();
+      console.log("match: ", testMatch);*/
       this.setState({
         summoner: {
           ids: summoner,
