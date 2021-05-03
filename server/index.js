@@ -8,6 +8,14 @@ const app = express();
 const RIOT_API_KEY = process.env.RIOT_API_KEY;
 const riotAPI = new twisted.LolApi(RIOT_API_KEY);
 
+// returns a match data based on given matchID
+app.get("/match", async (req, res) => {
+  const matchId = req.query.matchId;
+  let r = await riotAPI.Match.get(matchId, twisted.Constants.Regions.EU_WEST);
+  res.json(r.response);
+});
+
+// returns league entries in all queues for a given summoner ID
 app.get("/summonerleague", async (req, res) => {
   const summonerId = req.query.summId;
   let r = await riotAPI.League.bySummoner(
@@ -17,6 +25,7 @@ app.get("/summonerleague", async (req, res) => {
   res.json(r.response);
 });
 
+// returns champion masteries entries by number of champion points descending for a specific summoner
 app.get("/champmastery", async (req, res) => {
   const summonerId = req.query.summId;
   let r = await riotAPI.Champion.masteryBySummoner(
@@ -26,6 +35,7 @@ app.get("/champmastery", async (req, res) => {
   res.json(r.response);
 });
 
+// returns an array with matchids for a specific summoner
 app.get("/matches", async (req, res) => {
   const accountId = req.query.accountId;
   let r = await riotAPI.Match.list(
@@ -35,6 +45,7 @@ app.get("/matches", async (req, res) => {
   res.json(r.response);
 });
 
+// returns an object containing important IDs for specific summoner
 app.get("/summoner", async (req, res) => {
   const name = req.query.name;
   let r = await riotAPI.Summoner.getByName(
